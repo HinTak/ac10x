@@ -1,0 +1,26 @@
+# SPDX-License-Identifier: GPL-2.0-only
+config SND_SOC_ALL_CODECS
+	tristate "Build all ASoC CODEC drivers"
+	depends on COMPILE_TEST
+	select SND_SOC_AC101 if I2C
+	select SND_SOC_AC108 if I2C
+	help
+	  Normally ASoC codec drivers are only built if a machine driver which
+	  uses them is also built since they are only usable with a machine
+	  driver.  Selecting this option will allow these drivers to be built
+	  without an explicit machine driver for test and development purposes.
+
+	  Support for the bus types used to access the codecs to be built must
+	  be selected separately.
+
+	  If unsure select "N".
+ 
+config SND_SOC_AC101
+	tristate "Allwinner Tech AC101 CODEC"
+	depends on I2C
+	default m if I2C=m || I2C=y
+
+config SND_SOC_AC108
+	tristate "Allwinner Tech AC108 CODEC"
+	depends on I2C
+	default m if I2C=m || I2C=y
